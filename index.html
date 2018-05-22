@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>苹果风格轮播</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Apple-like Gallery
+            <br>
+            <b>Slideshow</b>
+        </h1>
+        <p>
+            <span>View the</span>
+            <a href="">original tutorial »</a>
+        </p>
+    </header>
+    <div id="window" class="window">
+        <div id="wrapper" class="wrapper">
+            <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/macbook.jpg" alt="">
+            <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/iphone.jpg" alt="">
+            <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/imac.jpg" alt="">
+            <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/info.jpg" alt="">
+        </div>
+    </div>
+    <div class="footer">
+        <ul class="clearfix">
+            <li>
+                <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/thumb_macbook.png"
+                    alt="" height="25px">
+            </li>
+            <li>
+                <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/thumb_iphone.png"
+                    alt="" height="25px">
+            </li>
+            <li>
+                <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/thumb_imac.png"
+                    alt="" height="25px">
+            </li>
+            <li>
+                <img src="http://demo.tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/img/sample_slides/thumb_about.png"
+                    alt="" height="25px">
+            </li>
+        </ul>
+    </div>
+    <footer>
+        <p class="up">
+            <span>This is a tutorialzine demo. View the</span>
+            <a href="">original tutorial</a>
+            <span>to read and download the source files.</span>
+        </p>
+        <p class="down">
+            <span>The gallery features artwork from</span>
+            <a href="">rambocre, pickupjojo and codenamebender</a>
+        </p>
+    </footer>
+    <script>
+        var pictures = $('.footer >ul >li')
+        for (let i = 0; i < pictures.length; i++) {
+            $(pictures[i]).on('click', function (e) {
+                let index = $(e.currentTarget).index()
+                var move = index * -900
+                $(wrapper).css({
+                    transform: `translateX(${move}px)`
+                })
+                n = index
+                pictures.eq(n).addClass('active').siblings('.active').removeClass('active')
+            })
+        }
+        var n = 0
+        var size = pictures.length
+        pictures.eq(n % size).trigger('click').addClass('active')
+        var timerId = setInterval(() => {
+            n += 1
+            pictures.eq(n % size).trigger('click').addClass('active').siblings('.active').removeClass('active')
+        }, 3000)
+
+        $('#window').on('mouseenter', () => {
+            window.clearInterval(timerId)
+        })
+        $('#window').on('mouseleave', () => {
+            timerId = setInterval(() => {
+                n += 1
+                pictures.eq(n % size).trigger('click').addClass('active').siblings('.active').removeClass(
+                    'active')
+            }, 3000)
+        })
+    </script>
+</body>
+
+</html>
